@@ -90,7 +90,7 @@
     <?php  
 	session_start();
 	$id=$_SESSION["id"];
-	print $id;
+	
     if(isset($_POST["edusub"]))
 		{  
 			$con=mysql_connect('localhost','root','') or die(mysql_error());  
@@ -240,8 +240,32 @@
       
         } 
 		
+		$con=mysql_connect('localhost','root','') or die(mysql_error());  
+		mysql_select_db('my') or die("cannot select DB");  
+		$sql="select status,premium from register2 where id='$id'";  
+		$result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
+		while ($row = mysql_fetch_array ($result)){
+			$res=$row ['status'];
+			$prem=$row['premium'];
+			
+		}
 		
 		
+		echo 'Status of application:  ';
+		if($res=='Confirmed')
+			{  
+				echo "Accepted";
+				echo '<br/>';
+				echo 'Premium:  ';
+				echo $prem;		
+			} 
+			else 
+			{  
+				echo "Rejected!";  
+			}  
+			
+		
+				
      
     ?>  
     </body>  
