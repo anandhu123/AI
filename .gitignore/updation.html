@@ -1,0 +1,248 @@
+    <!doctype html>  
+    <html>  
+    <head>  
+    <title>Register</title>  
+        <style>   
+            body{  
+        margin-top: 100px;  
+        margin-bottom: 100px;  
+        margin-right: 150px;  
+        margin-left: 80px;  
+        background-color: azure ;  
+        color: palevioletred;  
+        font-family: verdana;  
+        font-size: 100%  
+          
+            }  
+                h1 {  
+        color: indigo;  
+        font-family: verdana;  
+        font-size: 100%;  
+    }  
+             h2 {  
+        color: indigo;  
+        font-family: verdana;  
+        font-size: 100%;  
+    }</style>  
+    </head>  
+    <body>  
+         
+        <center><h1></h1></center>  
+       
+        <center><h2>Updation Form</h2></center>  
+    <form action="" method="POST">  
+        <legend>  
+        <fieldset>  
+           <table>
+		 	   		 		 
+		   </tr>
+		   <tr>
+		   <th>Educational qualification</th>
+		   <th><input type="text" name="edu"></th>
+		   <th align="centre"><input type="submit" value="submit" name="edusub" /> </th>
+		   
+		 
+		   </tr>
+		   <tr>
+		   <th>Employment status</th>
+		   <th> <input type="text" name="emp"></th>
+		   <th align="centre"><input type="submit" value="submit" name="empsub" /> </th>
+		   </tr>
+		   		   </tr>
+		   <tr>
+		   <th>Profession</th>
+		   <th> <input type="text" name="pro"></th>
+		   <th align="centre"><input type="submit" value="submit" name="prosub" /> </th>
+		   </tr>
+		   
+		   		   </tr>
+		   <tr>
+		   <th>Location</th>
+		   <th> <input type="text" name="loc"></th>
+		   <th align="centre"><input type="submit" value="submit" name="locsub" /> </th>
+		   </tr>
+		   		   </tr>
+		   <tr>
+		   <th>Marital Status</th>
+		   <th> <input type="text" name="mar"></th>
+		   <th align="centre"><input type="submit" value="submit" name="marsub" /> </th>
+		   </tr>
+		   		   </tr>
+		 
+		   		   		   </tr>
+		   
+		    <tr>
+		   <th>Twitter name</th>
+		   <th> <input type="text" name="tw"></th>
+		   <th align="centre"><input type="submit" value="submit" name="twsub" /> </th>
+		   </tr>
+		   
+	
+		   
+		  
+ 
+		   </table>
+		   
+        </fieldset>  
+            </legend>  
+    </form>  
+	
+    <?php  
+	session_start();
+	$id=$_SESSION["id"];
+	print $id;
+    if(isset($_POST["edusub"]))
+		{  
+			$con=mysql_connect('localhost','root','') or die(mysql_error());  
+			mysql_select_db('my') or die("cannot select DB");  
+			  
+			$edu=$_POST['edu'];  
+			
+			
+
+			$sql="update register2 set education='$edu' where id='$id'";  
+			$result=mysql_query($sql);  
+			print $result;
+			if($result)
+			{  
+				echo "Successfully Submitted";
+				
+				
+					
+			} else 
+			{  
+				echo "Failure!";  
+			}  
+      
+        } 
+		
+		 if(isset($_POST["empsub"]))
+		{  
+			$con=mysql_connect('localhost','root','') or die(mysql_error());  
+			mysql_select_db('my') or die("cannot select DB");  
+			  
+			$emp=$_POST['emp'];  
+			
+			
+
+			$sql="update register2 set employee='$emp' where id='$id'";  
+			$result=mysql_query($sql);  
+			print $result;
+			if($result)
+			{  
+				echo "Successfully Submitted";
+				
+				
+					
+			} else 
+			{  
+				echo "Failure!";  
+			}  
+      
+        } 
+		
+		 if(isset($_POST["prosub"]))
+		{  
+			$con=mysql_connect('localhost','root','') or die(mysql_error());  
+			mysql_select_db('my') or die("cannot select DB");  
+			  
+			$pro=$_POST['pro'];  
+			
+			
+
+			$sql="update register2 set profession='$pro' where id='$id'";  
+			$result=mysql_query($sql);  
+			print $result;
+			if($result)
+			{  
+				echo "Successfully Submitted";
+				
+				
+					
+			} else 
+			{  
+				echo "Failure!";  
+			}  
+      
+        } 
+		
+		 if(isset($_POST["locsub"]))
+		{  
+			$con=mysql_connect('localhost','root','') or die(mysql_error());  
+			mysql_select_db('my') or die("cannot select DB");  
+			  
+			$loc=$_POST['loc'];  
+			
+			
+
+			$sql="update register2 set location='$loc' where id='$id'";  
+			$result=mysql_query($sql);  
+			print $result;
+			if($result)
+			{  
+				echo "Successfully Submitted";
+				
+				
+					
+			} else 
+			{  
+				echo "Failure!";  
+			}  
+      
+        } 
+		
+		 if(isset($_POST["marsub"]))
+		{  
+			$con=mysql_connect('localhost','root','') or die(mysql_error());  
+			mysql_select_db('my') or die("cannot select DB");  
+			  
+			$mar=$_POST['mar'];  
+			
+		
+
+			$sql="update register2 set mar='$mar' where id='$id'";  
+			$result=mysql_query($sql);  
+			print $result;
+			if($result)
+			{  
+				echo "Successfully Submitted";
+				
+				
+					
+			} else 
+			{  
+				echo "Failure!";  
+			}  
+      
+        } 
+		 if(isset($_POST["twsub"]))
+		{  
+			$con=mysql_connect('localhost','root','') or die(mysql_error());  
+			mysql_select_db('my') or die("cannot select DB");  
+			  
+			$tw=$_POST['tw'];  
+			
+			
+
+			$sql="update register2 set tweet='$tw' where id='$id'";  
+			$result=mysql_query($sql);  
+			print $result;
+			if($result)
+			{  
+				echo "Successfully Submitted";
+				
+				
+					
+			} else 
+			{  
+				echo "Failure!";  
+			}  
+      
+        } 
+		
+		
+		
+     
+    ?>  
+    </body>  
+    </html>   
