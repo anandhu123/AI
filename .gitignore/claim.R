@@ -41,7 +41,7 @@ for(j in 1:n)
 {
   for(k in 1:num)
   {
-    if(claimdb[j,4]==disease[k])
+    if(grepl(claimdb[j,4],disease[k],ignore.case = T)==T)
     {
          claimdb[j,9]="Rejected"
          claimdb[j,10]="Excluded diseases"
@@ -55,7 +55,7 @@ num1=length(list)
 num2=nrow(claimdb)
 for(x in 1:num2)
 {
-  if(grepl(list[j], claimdb[x,4])==F)
+  if(grepl( claimdb[x,4],list[j],ignore.case = T)==F)
   {
     if(claimdb[x,6] >1000000)
     {
@@ -112,7 +112,7 @@ for(x in 1:n)
   temp=TRUE
   for(y in 1:l)
   { 
-    if(grepl(claimdb[x,4],dislist[y])==TRUE)
+    if(grepl(dislist[y],claimdb[x,4],ignore.case = T)==TRUE)
     {
      temp=FALSE
      print(claimdb[x,4])
@@ -129,11 +129,42 @@ for(x in 1:n)
   }
 }
     
+#Hospital network
+library(readr)
+hosp <- read_csv("C:/Users/anand/Downloads/hospital_directory.csv")
+hosp=hosp[hosp$State=='Kerala',]
+hosp$Hospital_Name=gsub( " *\\(.*?\\) *", "", hosp$Hospital_Name)
+
+n1=nrow(claimdb)
+n2=nrow(hosp)
+
+for(x1 in 1:n1)
+{
+  temp=TRUE
+  for(x2 in 1:n2)
+  { 
+    if(grepl(claimdb[x1,5],hosp[x2,4],ignore.case = T)==T)
+    {
+      temp=FALSE
+      print(claimdb[x1,5])
+      print(hosp[x2,4])
+      
+    }
+  }
+  if(temp==TRUE)
+  {
+    claimdb[x1,9]='Rejected'
+    claimdb[x1,10]="Unreliable hospital network"
+    
+  }
+}
+
+
+
 #Five:duplication of claims
 arrays <- data.frame(matrix(ncol = 2, nrow = 0))
 x <- c("name", "person")
 colnames(arrays) <- x
-
 
 h=1
 count=0
@@ -190,7 +221,6 @@ for(i in 1:nrow(listun))
   }
 }
 
-
 #writing to DB
 for(d in 1:nrow(claimdb))
 {
@@ -206,8 +236,6 @@ for(d in 1:nrow(claimdb))
     dbGetQuery(con,change)
   }
 }
-
-
 
 
 
