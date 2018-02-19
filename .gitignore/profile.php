@@ -2,7 +2,10 @@
     <html>  
     <head>  
     <title>Register</title>  
-        <style>   
+        <style>  
+#image-logo {
+  float: right;
+}		
             body{  
         margin-top: 100px;  
         margin-bottom: 100px;  
@@ -43,7 +46,20 @@
 	echo "Hello"." ".$uname;
 	
 	   ?>
-        <center><h2>Updation Form</h2></center>  
+	   
+		<table>
+		 <tr>
+		 
+		   <th><a href="http://localhost/AI/login.php"><center>Log out<center/></a></th>
+		 
+		   </tr>		
+			</table>
+			
+	
+	   
+	   
+	   
+        <center><h2>PROFILE</h2></center>  
     <form action="" method="POST">  
         <legend>  
         <fieldset>  
@@ -124,7 +140,6 @@
 	//session_start();
 	//$id=$_SESSION["id"];
 	
-
     if(isset($_POST["edusub"]))
 		{  
 			$con=mysql_connect('localhost','root','') or die(mysql_error());  
@@ -375,7 +390,7 @@
 		
 	echo '<br/>'.'Your confirmed claims are provided only after scrutiny of submitted details with the manually submitted documents';	
 
-		
+	
      
     ?>  
     </body>  
