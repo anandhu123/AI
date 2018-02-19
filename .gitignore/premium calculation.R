@@ -18,7 +18,7 @@ summary(fit)
 con = dbConnect(MySQL(), user ='root',password ='',dbname = 'my',host ='localhost')
 
 #Reject with age limit
-search="select age,gender as sex,bmi,children,smoker,region from register2 where status='Confirmed'"
+search="select id,age,gender as sex,bmi,children,smoker,region from register2 where status='Confirmed'"
 db<-dbGetQuery(con,search)
 df=data.frame(db)
 n=nrow(df)
@@ -30,9 +30,17 @@ df1=data.frame(db1)
 for(i in 1:n)
 {
   
-  predicted= predict(fit,df[i,])
+  predicted= predict(fit,df[i,-1])
   print(predicted)
-  change=sprintf("update register2 set premium ='%s' where id= '%s'", predicted,df1[i,12])
+  #discount for unemployed persons
+  if(df1[i,4]=='no')
+  {
+    disc=((predicted)*25)/100
+    predicted=predicted-disc
+  }
+  
+  
+  change=sprintf("update register2 set premium ='%s' where id= '%d'", predicted,df[i,1])
   dbGetQuery(con,change) 
   
 }
