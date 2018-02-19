@@ -23,23 +23,39 @@ db<-dbGetQuery(con,search)
 df=data.frame(db)
 n=nrow(df)
 
-search1="select * from register2"
+search1="select * from register2 where status='Confirmed'"
 db1<-dbGetQuery(con,search1)
 df1=data.frame(db1)
+n1=nrow(df1)
 
-for(i in 1:n)
+for(i in 1:n1)
 {
-  
+  temp=TRUE
   predicted= predict(fit,df[i,-1])
   print(predicted)
-  #discount for unemployed persons
+  #discount for unemployed persons which has no skill-set
   if(df1[i,4]=='no')
   {
-    disc=((predicted)*25)/100
-    predicted=predicted-disc
+    skills=c("M tech","b tech","doctrate","poly technique","ITI")
+    l=length(skills)
+    for(k in 1:l)
+    {
+      if(grepl(df1[i,3],skills[k],ignore.case = T)==T)
+      {
+        temp=FALSE
+      }
+      
+    }
+    
+    if(temp==TRUE)
+    {
+      disc=((predicted)*25)/100
+      predicted=predicted-disc
+    }
+   
   }
   
-  
+  print(predicted)
   change=sprintf("update register2 set premium ='%s' where id= '%d'", predicted,df[i,1])
   dbGetQuery(con,change) 
   
