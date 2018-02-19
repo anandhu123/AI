@@ -111,12 +111,22 @@
 		   <th> <input type="text" name="bmi"></th>
 		   </tr>
 		   
+		   
 		   <tr>
 		   
 		   <th>
 		   </th>
 		 <th align="centre"><input type="submit" value="Register" name="submit" /> </th>
 		   </tr>
+		   
+		   
+	 <tr>
+		   <th><a href="http://localhost/p1/log.php"><center>Already a user ? Click here<center/></a></th>
+		
+		   </tr>	   
+		   
+		   
+
  
 		   </table>
 		   
@@ -125,10 +135,13 @@
     </form>  
 	
     <?php  
-    if(isset($_POST["submit"])){  
-    if(!empty($_POST['user'])&&!empty($_POST['age'])&&!empty($_POST['edu'])&&!empty($_POST['emp'])&&!empty($_POST['pro'])&&!empty($_POST['loc'])&&!empty($_POST['mar'])&&!empty($_POST['gen'])&&!empty($_POST['pre'])) 
-		{  
-			$name=$_POST['user'];  
+			
+    if(isset($_POST["submit"]))
+	{ 
+
+	 if(!empty($_POST['user'])&&!empty($_POST['age'])&&!empty($_POST['edu'])&&!empty($_POST['emp'])&&!empty($_POST['pro'])&&!empty($_POST['loc'])&&!empty($_POST['mar'])&&!empty($_POST['gen'])&&!empty($_POST['pre'])&&!empty($_POST['twt'])&&!empty($_POST['chil'])&&!empty($_POST['smo'])&&!empty($_POST['reg'])&&!empty($_POST['bmi'])) 
+	 {
+			$name=$_POST['user']; 
 			$age=$_POST['age'];  
 			$edu=$_POST['edu'];  
 			$emp=$_POST['emp'];  
@@ -146,44 +159,36 @@
 			$smo=$_POST['smo'];  
 			$reg=$_POST['reg'];  
 			$bmi=$_POST['bmi'];
+			$prem=0;
 			
+ 
 			
-			
-			
-		$numrows=0;
-        $con=mysql_connect('localhost','root','') or die(mysql_error());  
-        mysql_select_db('my') or die("cannot select DB");  
-		$sql="SELECT *from register2 where name='$name' and age='$age' and education='$edu' and employee='$emp' and profession='$pro' and location='$loc' and mar='$mar' and gender='$gen' and Pre='$pre' and tweet='$twt' and status='$na' and children='$chil' and smoker='$smo' and region='$reg' and bmi='$bmi' ";  
-		$rows=mysql_query($sql);
-		$numrows=mysql_num_rows($rows);
-        if($numrows==0)  
-        {  
+		
+			$con=mysql_connect('localhost','root','') or die(mysql_error());  
+			mysql_select_db('my') or die("cannot select DB"); 
 			$ran=mt_rand (10,100000);
 			$secret=$ran;
-			$sql="INSERT INTO register2(name,age,education,employee,profession,location,mar,gender,Pre,tweet,status,id,children,smoker,region,bmi) VALUES('$name','$age','$edu','$emp','$pro','$loc','$mar','$gen','$pre','$twt','not defined','$ran','$chil','$smo','$reg','$bmi')";  
+						
+			$sql="INSERT INTO register2(name,age,education,employee,profession,location,mar,gender,Pre,tweet,status,id,children,smoker,region,bmi,premium) VALUES('$name','$age','$edu','$emp','$pro','$loc','$mar','$gen','$pre','$twt','not defined','$ran','$chil','$smo','$reg','$bmi','$prem')";  
+		
 			$result=mysql_query($sql);  
 			if($result)
 			{  
-				echo "Successfully Submitted";
-				echo $secret;
-				
-					
+				echo 'Successfully Submitted';
+				echo '<br/>';
+				echo 'Your secret code is: ';
+				echo '$secret';
+			
 			} else 
 			{  
 				echo "Failure!";  
 			}  
-      
-        } else 
+		}
+		else 
 		{  
-			echo "You already successfully completed your registration.";  
-        }  
-      
-    }
-	else 
-	{  
-        echo "All fields are required!";  
-    }  
-    }  
-    ?>  
+			echo "All fields are required!";  
+		}  
+	}
+?>
     </body>  
     </html>   
