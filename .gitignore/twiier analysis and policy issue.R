@@ -60,7 +60,8 @@ for(k in 1:number)
     next;
   }
   count=0
-  words=c("people","People1stTripuraModel","Pakoda")
+  #Job related word search
+  words=c("job","job alert","job position","occupation","salary","labour","employment","work","hire","recruitment")
   num=length(words)
 
   for(j in 1:num)
