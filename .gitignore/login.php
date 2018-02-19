@@ -81,7 +81,7 @@
 			{  
 				session_start();			
 			$_SESSION["id"] = $i;
-				header('Location: mail.php');
+				header('Location: profile.php');
 	
 			} else 
 			{  
