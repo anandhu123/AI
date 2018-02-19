@@ -91,7 +91,20 @@
         </fieldset>  
             </legend>  
 			
-		
+		 
+            <legend>  
+			<fieldset> 
+		<table	>
+		 <tr>
+		   <th>Back to profile</th>
+		  <th  align="centre"><input type="submit" value="Back to profile" name="prof" /> </th>
+		 
+		   </tr>		
+			</table>
+			</fieldset>  
+            </legend>  
+			
+			</br/>
 			
 			
 			
@@ -131,9 +144,14 @@
 			
 			
 		}
-
+		if(isset($_POST["prof"]))
+		{
+			$_SESSION["id"] = $i;
+			header('Location: profile.php');
+			
+			
 			  
-      
+		}
         
 		
     ?>  
