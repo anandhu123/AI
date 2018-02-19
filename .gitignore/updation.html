@@ -28,7 +28,21 @@
     <body>  
          
         <center><h1></h1></center>  
-       
+       <?php
+	   
+	   	session_start();
+	$id=$_SESSION["id"];
+	$con=mysql_connect('localhost','root','') or die(mysql_error());  
+	mysql_select_db('my') or die("cannot select DB");  
+	$sql="select name from register2 where id='$id'";  
+	$result=mysql_query($sql);
+	while ($row = mysql_fetch_array ($result)){
+			$uname=$row ['name'];
+			
+		}
+	echo "Hello"." ".$uname;
+	
+	   ?>
         <center><h2>Updation Form</h2></center>  
     <form action="" method="POST">  
         <legend>  
@@ -85,12 +99,32 @@
 		   
         </fieldset>  
             </legend>  
+			
+			 
+            <legend>  
+			<fieldset> 
+		<table	>
+		 <tr>
+		   <th>Apply for a claim</th>
+		  <th  align="centre"><input type="submit" value="Click here" name="submitc" /> </th>
+		 
+		   </tr>		
+			</table>
+			</fieldset>  
+            </legend>  
+			
+			</br/>
+			
+			
+			
+			
+			
     </form>  
-	
     <?php  
-	session_start();
-	$id=$_SESSION["id"];
+	//session_start();
+	//$id=$_SESSION["id"];
 	
+
     if(isset($_POST["edusub"]))
 		{  
 			$con=mysql_connect('localhost','root','') or die(mysql_error());  
@@ -239,7 +273,39 @@
 			}  
       
         } 
+		if(isset($_POST["submitc"]))
+		{  
+			
+			
+			$con=mysql_connect('localhost','root','') or die(mysql_error());  
+			mysql_select_db('my') or die("cannot select DB");  
+			$sql="SELECT * FROM register2 where id='$id'";  
+			$result=mysql_query($sql); 
+			$pre="";
+			while ($row = mysql_fetch_array ($result))
+			{
+				$pre=$row ['premium'];
+				
+					
+			}
+			if($pre==0)
+			{
+				echo "Your application is rejected!! please submit valid  informations or contact our customer service";
+				echo '<br/>';
+				echo '<br/>';
+			}
+			else
+			{
+				session_start();
+				$_SESSION["id"] = $id;
+				header('Location: claim.php');
+			}
+					
+      
+        } 
 		
+	
+		$res=" ";
 		$con=mysql_connect('localhost','root','') or die(mysql_error());  
 		mysql_select_db('my') or die("cannot select DB");  
 		$sql="select status,premium from register2 where id='$id'";  
@@ -249,7 +315,9 @@
 			$prem=$row['premium'];
 			
 		}
-		
+	
+		echo 'Registration Details';
+	    echo '<br/>';	
 		
 		echo 'Status of application:  ';
 		if($res=='Confirmed')
@@ -258,14 +326,56 @@
 				echo '<br/>';
 				echo 'Premium:  ';
 				echo $prem;		
+				echo '<br/>';
+				echo '<br/>';
 			} 
 			else 
 			{  
 				echo "Rejected!";  
+				echo '<br/>';	echo '<br/>';	
 			}  
 			
 		
-				
+		echo 'Claim Details';
+		$name="";
+		$con=mysql_connect('localhost','root','') or die(mysql_error());  
+		mysql_select_db('my') or die("cannot select DB");  
+		$sql="select * from claim where id='$id' ";  
+		$result=mysql_query($sql);
+		if($result)
+		{
+			
+			while ($row = mysql_fetch_array ($result))
+			{
+				$name=$row ['name'];
+				$status=$row ['status'];
+				$reason=$row ['reason'];
+				if($name)
+				{
+					echo '<br/>';	
+					echo 'You are applied for'." " ."$name". " " .'claim';
+					echo '<br/>';	
+					echo 'Status of claim:  ';
+					echo $status;
+					echo '<br/>';
+					if(strcmp($status,"Rejected")==0)
+					{		
+							echo 'Reason for rejection:  ';
+						echo $reason;
+						echo '<br/>';
+					}
+				}	
+			}
+		}
+		else
+		{
+			echo '<br/>';	
+			echo 'Claim registration is banned ';
+		}
+		
+	echo '<br/>'.'Your confirmed claims are provided only after scrutiny of submitted details with the manually submitted documents';	
+
+		
      
     ?>  
     </body>  
