@@ -121,7 +121,7 @@
 		   
 		   
 	 <tr>
-		   <th><a href="http://localhost/p1/log.php"><center>Already a user ? Click here<center/></a></th>
+		   <th><a href="http://localhost/p1/login.php"><center>Already a user ? Click here<center/></a></th>
 		
 		   </tr>	   
 		   
