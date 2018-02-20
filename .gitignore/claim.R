@@ -237,6 +237,42 @@ for(d in 1:nrow(claimdb))
   }
 }
 
+#Sms for claim approval
+library(twilio)
+
+Sys.setenv(TWILIO_SID = "ACa0c85454fb66df3e737714cd1f9b648b")
+Sys.setenv(TWILIO_TOKEN = "2f2460a31ea990c18a2135a14a7f62d5")
+
+my_phone_number <- "+919400606081"
+twilios_phone_number <- "+19375000746"
+
+s="select * from  register2"
+s<-dbGetQuery(con,s)
+n=nrow(claimdb)
+dat=claimdb[claimdb$status=='Accepted',]
+dat1 <- data.frame(matrix(ncol = 2, nrow = 0))
+x <- c("name", "ph")
+colnames(dat1) <- x
+for(j in 1:2)
+{
+
+  dat1[j,1]=s[s$id==dat[j,3],   1]
+  dat1[j,2]=s[s$id==dat[j,3],   18]
+
+}
+
+leng=nrow(dat)
+for(i in 1:leng)
+{
+  
+  body=sprintf("Hello  %s your application for %s claim is accepted",dat1[i,1],dat[i,4])
+  my_phone_number=dat1[i,2]
+  tw_send_message(from = twilios_phone_number, to = my_phone_number, 
+                 body = body)
+}
+
+
+
 
 
 
