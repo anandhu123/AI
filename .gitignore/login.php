@@ -51,14 +51,7 @@
 		   </table>
 		   
         </fieldset>  
-            </legend>  
-			
-		
-			
-			
-			
-			
-			
+            </legend>  							
     </form>  
 	
     <?php  
@@ -79,9 +72,17 @@
 
 			if($res==$i)
 			{  
-				session_start();			
-			$_SESSION["id"] = $i;
-				header('Location: profile.php');
+				if($i!='999910')
+				{
+					session_start();			
+					$_SESSION["id"] = $i;
+					header('Location: profile.php');
+				}
+				else
+				{
+					header('Location: admin.php');
+					
+				}
 	
 			} else 
 			{  
