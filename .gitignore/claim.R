@@ -240,11 +240,11 @@ for(d in 1:nrow(claimdb))
 #Sms for claim approval
 library(twilio)
 
-Sys.setenv(TWILIO_SID = "ACa0c85454fb66df3e737714cd1f9b648b")
-Sys.setenv(TWILIO_TOKEN = "2f2460a31ea990c18a2135a14a7f62d5")
+Sys.setenv(TWILIO_SID = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+Sys.setenv(TWILIO_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxxx")
 
-my_phone_number <- "+919400606081"
-twilios_phone_number <- "+19375000746"
+my_phone_number <- "+xxxxxxxxxxxxxx"
+twilios_phone_number <- "+xxxxxxxxxx"
 
 s="select * from  register2"
 s<-dbGetQuery(con,s)
