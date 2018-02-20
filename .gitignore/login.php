@@ -51,8 +51,30 @@
 		   </table>
 		   
         </fieldset>  
-            </legend>  							
+            </legend>
+<table>
+<tr>
+		   <th><a href="http://localhost/AI/registration.php"><center>Not a user ? Click here<center/></a></th>
+		
+		   </tr>	   
+		   
+		   
+
+ 
+		   </table>
+
+
+
+
+
+			
     </form>  
+	
+	
+	
+	
+	
+	
 	
     <?php  
 	$res="";
