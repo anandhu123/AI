@@ -390,8 +390,17 @@
 		
 	echo '<br/>'.'Your confirmed claims are provided only after scrutiny of submitted details with the manually submitted documents';	
 
+	// if(isset($_POST["log"]))
+		//{  
+		//	session_start();
+		//	$_SESSION["id"] = $id;
+		//	header('Location: login.php');
 	
+		//}	
      
     ?>  
+	<br/>
+	<br/>
+	<input type=button value="Refresh" onClick="window.location.reload()">
     </body>  
     </html>   
