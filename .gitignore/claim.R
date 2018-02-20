@@ -237,7 +237,7 @@ for(d in 1:nrow(claimdb))
   }
 }
 
-#Sms for claim approval
+#Sms notifications for claim approval
 library(twilio)
 
 Sys.setenv(TWILIO_SID = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
