@@ -113,6 +113,15 @@
 		   
 		   
 		   <tr>
+			 
+		   <th>Phone</th>
+		   <th> <input type="text" name="ph"></th>
+		   </tr>
+		   
+		   
+
+		   
+		   <tr>
 		   
 		   <th>
 		   </th>
@@ -121,7 +130,7 @@
 		   
 		   
 	 <tr>
-		   <th><a href="http://localhost/p1/login.php"><center>Already a user ? Click here<center/></a></th>
+		   <th><a href="http://localhost/AI/login.php"><center>Already a user ? Click here<center/></a></th>
 		
 		   </tr>	   
 		   
@@ -139,7 +148,7 @@
     if(isset($_POST["submit"]))
 	{ 
 
-	 if(!empty($_POST['user'])&&!empty($_POST['age'])&&!empty($_POST['edu'])&&!empty($_POST['emp'])&&!empty($_POST['pro'])&&!empty($_POST['loc'])&&!empty($_POST['mar'])&&!empty($_POST['gen'])&&!empty($_POST['pre'])&&!empty($_POST['twt'])&&!empty($_POST['chil'])&&!empty($_POST['smo'])&&!empty($_POST['reg'])&&!empty($_POST['bmi'])) 
+	 if(!empty($_POST['user'])&&!empty($_POST['age'])&&!empty($_POST['edu'])&&!empty($_POST['emp'])&&!empty($_POST['pro'])&&!empty($_POST['loc'])&&!empty($_POST['mar'])&&!empty($_POST['gen'])&&!empty($_POST['pre'])&&!empty($_POST['twt'])&&!empty($_POST['chil'])&&!empty($_POST['smo'])&&!empty($_POST['reg'])&&!empty($_POST['bmi'])&&!empty($_POST['ph'])) 
 	 {
 			$name=$_POST['user']; 
 			$age=$_POST['age'];  
@@ -160,7 +169,7 @@
 			$reg=$_POST['reg'];  
 			$bmi=$_POST['bmi'];
 			$prem=0;
-			
+			$ph=$_POST['ph'];
  
 			
 		
@@ -169,7 +178,7 @@
 			$ran=mt_rand (10,100000);
 			$secret=$ran;
 						
-			$sql="INSERT INTO register2(name,age,education,employee,profession,location,mar,gender,Pre,tweet,status,id,children,smoker,region,bmi,premium) VALUES('$name','$age','$edu','$emp','$pro','$loc','$mar','$gen','$pre','$twt','not defined','$ran','$chil','$smo','$reg','$bmi','$prem')";  
+			$sql="INSERT INTO register2(name,age,education,employee,profession,location,mar,gender,Pre,tweet,status,id,children,smoker,region,bmi,premium,ph) VALUES('$name','$age','$edu','$emp','$pro','$loc','$mar','$gen','$pre','$twt','not defined','$ran','$chil','$smo','$reg','$bmi','$prem','$ph')";  
 		
 			$result=mysql_query($sql);  
 			if($result)
@@ -177,7 +186,7 @@
 				echo 'Successfully Submitted';
 				echo '<br/>';
 				echo 'Your secret code is: ';
-				echo '$secret';
+				echo $secret ;
 			
 			} else 
 			{  
