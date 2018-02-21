@@ -56,10 +56,7 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 	</tr>";
 
 
-		while ($row = mysql_fetch_array ($result)){
-			
-			
-			
+		while ($row = mysql_fetch_array ($result)){		
 			echo "<tr>";
 			echo "<td>" . $row['cid'] . "</td>";
 			echo "<td>" . $row['Location'] . "</td>";
@@ -70,15 +67,14 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 			echo "<td>" . $row['duration'] . "</td>"; 
 			echo "<td>" . $row['status'] . "</td>"; 
 			echo "<td>" . $row['id'] . "</td>";
-			echo "<tr/>";
-			
+			echo "<tr/>";			
 		}
 	
 	if(isset($_POST["submitc"]))
 		{
 			$id=$_POST['cid']; 
 			
-			$sql="update claim set status='Confirmed',reason='Eligible' where cid='$id'"; 
+			$sql="update claim set status='Accepted',reason='Eligible' where cid='$id'"; 
 			$result=mysql_query($sql);
 			echo $result;
 			if($result)
@@ -108,6 +104,23 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 			}
 			
 		}
+		if(isset($_POST["submitd"]))
+		{
+			$id=$_POST['cid']; 
+			
+			$sql="delete from claim where cid='$id'"; 
+			$result=mysql_query($sql);
+			echo $result;
+			if($result)
+			{
+				echo "Succesfully updated";
+			}
+			else
+			{
+				echo "Failed to update";
+			}
+			
+		}
 
     ?> 
 	
@@ -125,7 +138,7 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 		   <th><input type="text" name="cid"></th>
 		    <th align="centre"><input type="submit" value="Confirm claim" name="submitc" /> </th>
 			 <th align="centre"><input type="submit" value="Reject claim" name="submitr" /> </th>
-		   
+			 <th align="centre"><input type="submit" value="Delete claim" name="submitd" /> </th>
 		  </tr>
 	 <table>
 	</form>
@@ -158,13 +171,11 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 	<th>bmi</th>
 	<th>Premium</th>
 	<th>Phone number</th>
+	<th>Email</th>
 	</tr>";
 
-
-		while ($row = mysql_fetch_array ($result)){
-			
-			
-			
+		while ($row = mysql_fetch_array ($result)){		
+			if($row['id']!='999910'){
 			echo "<tr>";
 			echo "<td>" . $row['name'] . "</td>";
 			echo "<td>" . $row['age'] . "</td>";
@@ -173,8 +184,7 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 			echo "<td>" . $row['profession'] . "</td>";
 			echo "<td>" . $row['location'] . "</td>";
 			echo "<td>" . $row['mar'] . "</td>"; 
-			
-			
+						
 			echo "<td>" . $row['gender'] . "</td>";
 			echo "<td>" . $row['Pre'] . "</td>";
 			echo "<td>" . $row['tweet'] . "</td>";
@@ -182,15 +192,18 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 			echo "<td>" . $row['id'] . "</td>";
 			echo "<td>" . $row['children'] . "</td>";
 			echo "<td>" . $row['smoker'] . "</td>";
-			
-			
+						
 			echo "<td>" . $row['region'] . "</td>";
 			echo "<td>" . $row['bmi'] . "</td>";
 			echo "<td>" . $row['premium'] . "</td>";
 			echo "<td>" . $row['ph'] . "</td>";
-			
+			echo "<td>" . $row['mail'] . "</td>";
+
 			
 			echo "<tr/>";
+			
+			
+			}
 			
 		} 
 		
@@ -207,7 +220,7 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 			
 			if($result && $result1)
 			{
-				echo "Succesfully updated";
+				echo "Successfully updated";
 			}
 			else
 			{
@@ -231,9 +244,7 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 
 	
  <input type=button value="Refresh" onClick="window.location.reload()">
-          
-          
-		
+          	
  
     </body>  
     </html>   
