@@ -2,7 +2,7 @@ library(ggmap)
 library(geosphere)
 
 #Google API for location access
-register_google(key = "AIzaSyDtHM_d_RRnL0QF55JPVYrbOcEHAoN_f00")
+register_google(key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 
 #Sql connection
 con = dbConnect(MySQL(), user ='root',password ='',dbname = 'my',host ='localhost')
@@ -132,7 +132,7 @@ for(x in 1:n)
 #Hospital network
 library(readr)
 hosp <- read_csv("C:/Users/anand/Downloads/hospital_directory.csv")
-hosp=hosp[hosp$State=='Kerala',]
+#hosp=hosp[hosp$State=='Kerala',]
 hosp$Hospital_Name=gsub( " *\\(.*?\\) *", "", hosp$Hospital_Name)
 
 n1=nrow(claimdb)
@@ -148,8 +148,9 @@ for(x1 in 1:n1)
       temp=FALSE
       print(claimdb[x1,5])
       print(hosp[x2,4])
-      
+      break
     }
+    if(temp==F)break
   }
   if(temp==TRUE)
   {
@@ -237,28 +238,29 @@ for(d in 1:nrow(claimdb))
   }
 }
 
-#Sms notifications for claim approval
+#SMS for claim approval
 library(twilio)
 
-Sys.setenv(TWILIO_SID = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-Sys.setenv(TWILIO_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxxx")
+Sys.setenv(TWILIO_SID = "xxxxxxxxxxxxxxxxxxxxxxxxxxx")
+Sys.setenv(TWILIO_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxx")
 
-my_phone_number <- "+xxxxxxxxxxxxxx"
-twilios_phone_number <- "+xxxxxxxxxx"
+my_phone_number <- "+xxxxxxxxxxxx"
+twilios_phone_number <- "+xxxxxxxxxxxxxx"
 
 s="select * from  register2"
 s<-dbGetQuery(con,s)
 n=nrow(claimdb)
+claimdb="select * from  claim"
+claimdb=dbGetQuery(con,claimdb)
+
 dat=claimdb[claimdb$status=='Accepted',]
 dat1 <- data.frame(matrix(ncol = 2, nrow = 0))
 x <- c("name", "ph")
 colnames(dat1) <- x
-for(j in 1:2)
+for(j in 1:nrow(dat))
 {
-
-  dat1[j,1]=s[s$id==dat[j,3],   1]
-  dat1[j,2]=s[s$id==dat[j,3],   18]
-
+  dat1[j,1]=s[s$id==dat[j,3],1]
+  dat1[j,2]=s[s$id==dat[j,3],18]
 }
 
 leng=nrow(dat)
@@ -266,10 +268,21 @@ for(i in 1:leng)
 {
   
   body=sprintf("Hello  %s your application for %s claim is accepted",dat1[i,1],dat[i,4])
+  print(body)
   my_phone_number=dat1[i,2]
   tw_send_message(from = twilios_phone_number, to = my_phone_number, 
                  body = body)
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
