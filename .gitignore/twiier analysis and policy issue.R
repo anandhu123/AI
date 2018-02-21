@@ -6,16 +6,16 @@ library(RMySQL)
 library(dbConnect)
 
 # Set API Keys
-api_key <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-api_secret <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-access_token <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-access_token_secret <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+api_key <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+api_secret <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+access_token <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+access_token_secret <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret)
 
 #Extract latest tweets
 timeLine <- homeTimeline(n = 800, retryOnRateLimit = 10)
-beginning <-  as.POSIXct("2018-02-10 09:00:00 UTC")
-end <- as.POSIXct("2018-02-14 01:00:00 UTC")
+beginning <-  as.POSIXct("2018-02-15 09:00:00 UTC")
+end <- as.POSIXct("2018-02-19 01:00:00 UTC")
 times <- lapply(timeLine, function(x) x$created)
 these <- which(times > beginning & times < end)
 myMorningTweets <- timeLine[these]
@@ -28,9 +28,6 @@ age="select tweet,age from register2"
 agedb<-dbGetQuery(con,age)
 db=agedb[agedb$age >18,  ] 
 db<-data.frame(db)
-
-
-
 
 #Rejection confirmation
 ager=agedb[agedb$age <18,  ]
@@ -60,8 +57,7 @@ for(k in 1:number)
     next;
   }
   count=0
-  #Job related word search
-  words=c("job","job alert","job position","occupation","salary","labour","employment","work","hire","recruitment")
+  words=c("people","People1stTripuraModel","Pakoda")
   num=length(words)
 
   for(j in 1:num)
@@ -86,8 +82,35 @@ for(k in 1:number)
     change=sprintf("update register2 set status='Confirmed' where tweet= '%s'", condition)
     dbGetQuery(con,change) 
   }
- 
 }
+
+#Sent email confirmation with secret id
+library(RDCOMClient)
+search=sprintf("select * from register2 where status ='Confirmed'")
+db=dbGetQuery(con,search)
+for(i in 1:nrow(db))
+{
+  if(db[i,19]!="no gmail")
+  {
+    
+     body=sprintf("Hello %s, your application for medicare registration is accepted and your secret id for login is %d",db[i,1],db[i,12])
+     OutApp <- COMCreate("Outlook.Application")
+     outMail = OutApp$CreateItem(0)
+     outMail[["To"]] = db[i,19]
+     outMail[["subject"]] = "Medicare"
+     outMail[["body"]] = body
+     outMail$Send()
+  }
+  else
+  {
+    next
+  }
+  
+}
+
+
+
+
 
 #Conditions applied
 #1-age
