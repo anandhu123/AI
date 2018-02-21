@@ -119,7 +119,12 @@
 		   </tr>
 		   
 		   
-
+ <tr>
+			 
+		   <th>Mail id</th>
+		   <th> <input type="text" name="mailid"></th>
+		   </tr>
+		   
 		   
 		   <tr>
 		   
@@ -148,29 +153,29 @@
     if(isset($_POST["submit"]))
 	{ 
 
-	 if(!empty($_POST['user'])&&!empty($_POST['age'])&&!empty($_POST['edu'])&&!empty($_POST['emp'])&&!empty($_POST['pro'])&&!empty($_POST['loc'])&&!empty($_POST['mar'])&&!empty($_POST['gen'])&&!empty($_POST['pre'])&&!empty($_POST['twt'])&&!empty($_POST['chil'])&&!empty($_POST['smo'])&&!empty($_POST['reg'])&&!empty($_POST['bmi'])&&!empty($_POST['ph'])) 
+	 if(!empty($_POST['user'])&&!empty($_POST['age'])&&!empty($_POST['edu'])&&!empty($_POST['emp'])&&!empty($_POST['pro'])&&!empty($_POST['loc'])&&!empty($_POST['mar'])&&!empty($_POST['gen'])&&!empty($_POST['pre'])&&!empty($_POST['twt'])&&!empty($_POST['chil'])&&!empty($_POST['smo'])&&!empty($_POST['reg'])&&!empty($_POST['bmi'])&&!empty($_POST['ph'])&&!empty($_POST['mailid'])) 
 	 {
 			$name=$_POST['user']; 
 			$age=$_POST['age'];  
 			$edu=$_POST['edu'];  
-			$emp=$_POST['emp'];  
+			$emp=strtolower($_POST['emp']);  
 			
 			
 			$pro=$_POST['pro'];  
 			$loc=$_POST['loc'];  
-			$mar=$_POST['mar'];  
-			$gen=$_POST['gen'];  
-			$pre=$_POST['pre'];  
+			$mar=strtolower($_POST['mar']);  
+			$gen=strtolower($_POST['gen']);  
+			$pre=strtolower($_POST['pre']);  
 			$twt=$_POST['twt'];  
 			$na="not defined";
 			
 			$chil=$_POST['chil'];  
-			$smo=$_POST['smo'];  
+			$smo=strtolower($_POST['smo']);  
 			$reg=$_POST['reg'];  
 			$bmi=$_POST['bmi'];
 			$prem=0;
 			$ph=$_POST['ph'];
- 
+			$mailid=$_POST['mailid'];
 			
 		
 			$con=mysql_connect('localhost','root','') or die(mysql_error());  
@@ -178,7 +183,7 @@
 			$ran=mt_rand (10,100000);
 			$secret=$ran;
 						
-			$sql="INSERT INTO register2(name,age,education,employee,profession,location,mar,gender,Pre,tweet,status,id,children,smoker,region,bmi,premium,ph) VALUES('$name','$age','$edu','$emp','$pro','$loc','$mar','$gen','$pre','$twt','not defined','$ran','$chil','$smo','$reg','$bmi','$prem','$ph')";  
+			$sql="INSERT INTO register2(name,age,education,employee,profession,location,mar,gender,Pre,tweet,status,id,children,smoker,region,bmi,premium,ph,mail) VALUES('$name','$age','$edu','$emp','$pro','$loc','$mar','$gen','$pre','$twt','not defined','$ran','$chil','$smo','$reg','$bmi','$prem','$ph','$mailid')";  
 		
 			$result=mysql_query($sql);  
 			if($result)
