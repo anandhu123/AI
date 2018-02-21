@@ -57,7 +57,7 @@ for(k in 1:number)
     next;
   }
   count=0
-  words=c("people","People1stTripuraModel","Pakoda")
+  words=c("job","employee","job alert","job search","career","occupation","employment")
   num=length(words)
 
   for(j in 1:num)
