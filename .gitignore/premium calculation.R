@@ -1,3 +1,4 @@
+
 library(readr)
 library(randomForest)
 
@@ -54,16 +55,24 @@ for(i in 1:n1)
     }
    
   }
-  
+  if(df1[i,7]=='single')
+  {
+    disc=((predicted)*2)/100
+    predicted=predicted-disc
+    
+  }
+  if(df1[i,9]=='yes')
+  {
+    disc=((predicted)*4)/100
+    predicted=predicted+disc
+    
+  }
+
   print(predicted)
   change=sprintf("update register2 set premium ='%s' where id= '%d'", predicted,df[i,1])
   dbGetQuery(con,change) 
   
 }
-
-
-
-
 
 
 
