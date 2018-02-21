@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 19, 2018 at 07:01 AM
+-- Generation Time: Feb 21, 2018 at 11:39 AM
 -- Server version: 5.1.53
 -- PHP Version: 5.3.4
 
@@ -42,16 +42,20 @@ CREATE TABLE IF NOT EXISTS `register2` (
   `smoker` varchar(10) DEFAULT NULL,
   `region` varchar(20) DEFAULT NULL,
   `bmi` int(20) DEFAULT NULL,
-  `premium` int(20) DEFAULT NULL
+  `premium` int(20) DEFAULT NULL,
+  `ph` varchar(22) NOT NULL,
+  `mail` varchar(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `register2`
 --
 
-INSERT INTO `register2` (`name`, `age`, `education`, `employee`, `profession`, `location`, `mar`, `gender`, `Pre`, `tweet`, `status`, `id`, `children`, `smoker`, `region`, `bmi`, `premium`) VALUES
-('Anandhu', 22, 'degree', 'No', 'Engineer', 'Kottayam', 'single', 'male', 'No', 'vijayanpinarayi', 'Confirmed', 24998, 3, 'yes', 'northwest', 33, 29696),
-('Anna', 26, 'B tech', 'No', 'System admin', 'Kollam', 'Married', 'female', 'No', 'CMOKerala', 'Confirmed', 27464, 2, 'no', 'northeast', 26, 4509),
-('anju', 12, 'B tech', 'No', 'No', 'Alappuzha', 'single', 'female', 'Yes', 'cpimspeak', 'Rejected', 87878, 2, 'no', 'northeast', 55, 0),
-('Appus', 45, 'M tech', 'No', 'Engineer', 'Thrissur', 'married', 'male', 'no', 'vijayanpinarayi', 'Confirmed', 63938, 3, 'yes', 'southwest', 55, 42461),
-('Abhi', 24, 'plus 2', 'no', 'no', 'Kasargod', 'no', 'female', 'no', 'SitaramYechury', 'Confirmed', 24224, 0, 'yes', 'southwest', 45, 32379);
+INSERT INTO `register2` (`name`, `age`, `education`, `employee`, `profession`, `location`, `mar`, `gender`, `Pre`, `tweet`, `status`, `id`, `children`, `smoker`, `region`, `bmi`, `premium`, `ph`, `mail`) VALUES
+('Anandhu', 22, 'degree', 'No', 'Engineer', 'Kottayam', 'single', 'male', 'No', 'twitter name', 'Confirmed', 24998, 3, 'yes', 'northwest', 33, 29696, '0', 'gmail id'),
+('anju', 12, 'B tech', 'No', 'No', 'Alappuzha', 'single', 'female', 'Yes', 'twitter name', 'Rejected', 87878, 2, 'no', 'northeast', 55, 0, '0', 'no gmail'),
+('Appus', 45, 'M tech', 'No', 'Engineer', 'Thrissur', 'married', 'male', 'no', 'twitter name', 'Confirmed', 63938, 3, 'yes', 'southwest', 55, 42461, '0', 'no gmail'),
+('Anuraj kr', 24, 'plus 2', 'no', 'no', 'Kasargod', 'no', 'female', 'no', 'twitter name', 'Confirmed', 24224, 0, 'yes', 'southwest', 45, 24284, '+91890770000', 'gmail id'),
+('Anna Aghila Sebastina', 26, 'plus 2', 'no', 'no', 'Maradu', 'single', 'female', 'no', 'twitter name', 'Confirmed', 19241, 0, 'no', 'northwest', 44, 6984, '+91940060000', 'no gmail'),
+('Anu', 45, 'degree', 'no', 'no', 'Ponkunnam', 'single', 'male', 'no', 'twitter name', 'not defined', 72758, 3, 'yes', 'northwest', 33, 0, '+9194000001', 'no gmail'),
+('admin', 0, '', '', '', '', '', '', '', '', '', 999910, 0, '', '', 0, 0, '', 'no gmail');
