@@ -2,7 +2,7 @@ library(ggmap)
 library(geosphere)
 
 #Google API for location access
-register_google(key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+register_google(key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 
 #Sql connection
 con = dbConnect(MySQL(), user ='root',password ='',dbname = 'my',host ='localhost')
@@ -160,9 +160,86 @@ for(x1 in 1:n1)
   }
 }
 
+#Five:Excessive number of claims in a specific period
+for(i in 1:n)
+{
+  print(i)
+  fclaim=""
+  count=1
+  fclaim[1]=claimdb[i,1]
+  p=2
+  if(i!=n)
+  {
+    q=i+1
+    for(j in q:n)
+    {
+
+      if(claimdb[j,3]==claimdb[i,3])
+      {
+        if(claimdb[j,11]==as.Date(claimdb[i,11])-1 ||  claimdb[j,11]==as.Date(claimdb[i,11])-2 || claimdb[j,11]==as.Date(claimdb[i,11])+1 || claimdb[j,11]==as.Date(claimdb[i,11])+2)
+        {
+          count=count+1
+          fclaim[p]=claimdb[j,1]
+          p=p+1
+        }
+      }
+    }
+  }
+  if(i!=1)
+  {
+    m=i-1
+    for(k in m:1)
+    {
+
+      if(claimdb[k,3]==claimdb[i,3])
+      {
+        if(claimdb[k,3]==claimdb[i,3] && claimdb[k,11]==as.Date(claimdb[i,11])-1 ||  claimdb[k,11]==as.Date(claimdb[i,11])-2 || claimdb[k,11]==as.Date(claimdb[i,11])+1 || claimdb[k,11]==as.Date(claimdb[i,11])+2)
+        {
+          count=count+1
+          fclaim[p]=claimdb[k,1]
+          p=p+1
+        }
+      }
+    }
+  }  
+  
+  print(count)
+  print(fclaim)
+  f=length(fclaim)
+  if(count > 50)
+  {
+    for(h in 1:f)
+    {
+      print(fclaim[h])
+      claimdb[claimdb$cid==fclaim[h],9]='Rejected'
+      claimdb[claimdb$cid==fclaim[h],10]="Date mismatch"
+    }
+  }
+}
 
 
-#Five:duplication of claims
+#Five:Excessive number of claims in a day
+data=table(claimdb$date,claimdb$id)
+data1=unique(claimdb$id)
+data1=sort(data1, decreasing = F)
+
+n2=nrow(data)
+n3=ncol(data)
+for(i in 1:n2)
+{
+  for(j in 1:n3)
+  {
+    if(data[i,j] > 50)
+    {
+      claimdb[claimdb$id==data1[j],9]='Rejected'
+      claimdb[claimdb$id==data1[j],10]="Huge claims"
+      
+    }
+    
+  }
+}
+
+#Six:duplication of claims
 arrays <- data.frame(matrix(ncol = 2, nrow = 0))
 x <- c("name", "person")
 colnames(arrays) <- x
@@ -241,11 +318,11 @@ for(d in 1:nrow(claimdb))
 #SMS for claim approval
 library(twilio)
 
-Sys.setenv(TWILIO_SID = "xxxxxxxxxxxxxxxxxxxxxxxxxxx")
-Sys.setenv(TWILIO_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxx")
+Sys.setenv(TWILIO_SID = "xxxxxxxxxxxxxxxxxxxxxx")
+Sys.setenv(TWILIO_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 
-my_phone_number <- "+xxxxxxxxxxxx"
-twilios_phone_number <- "+xxxxxxxxxxxxxx"
+my_phone_number <- "+xxxxxxxxxxxxxxxxxxxxx"
+twilios_phone_number <- "+xxxxxxxxxxxxxxxxxx"
 
 s="select * from  register2"
 s<-dbGetQuery(con,s)
