@@ -44,7 +44,7 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 		
 			echo "<table border='1'>
 	<tr>
-	<th>cid</th>
+	<th>Claim id</th>
 	<th>Location</th>
 	<th>name</th>
 	<th>hospital</th>
@@ -162,7 +162,7 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 	<th>Previous insurance holder or not</th>
 	<th>Twitter name</th>
 	<th>status</th>
-	<th>id</th>
+	<th>Client id</th>
 	<th>Children</th>
 	
 	
@@ -206,8 +206,7 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 			}
 			
 		} 
-		
-		
+			
 	if(isset($_POST["submitcli"]))
 		{
 			$id=$_POST['cid']; 
@@ -235,7 +234,7 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
         
            <table>
 		   <tr>
-		   <th>Enter the claim id </th>
+		   <th>Enter the customer id </th>
 		   <th><input type="text" name="cid"></th>
 		    <th align="centre"><input type="submit" value="Delete customer" name="submitcli" /> </th>	   
 		  </tr>
