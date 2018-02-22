@@ -170,11 +170,20 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
 		   <th align="centre"><input type="submit" value="submit" name="twsub" /> </th>
 		   </tr>
 		   
-	
+		    <tr>
+		   <th>Phone number</th>
+		   <th> <input type="text" name="ph"></th>
+		   <th align="centre"><input type="submit" value="submit" name="phosub" /> </th>
+		   </tr>
 		   
-		  
- 
-		   </table>
+		   
+		    <tr>
+		   <th>E-mail</th>
+		   <th> <input type="text" name="mail"></th>
+		   <th align="centre"><input type="submit" value="submit" name="emasub" /> </th>
+		   </tr>
+		   
+	   </table>
 		   
         </fieldset>  
             </legend>  
@@ -197,7 +206,60 @@ $result=mysql_query($sql) or die($sql."<br/><br/>".mysql_error());;
     </form>  
     <?php  
 	
-	
+	 if(isset($_POST["phosub"]))
+	   	{  
+			$con=mysql_connect('localhost','root','') or die(mysql_error());  
+			mysql_select_db('my') or die("cannot select DB");  
+			  
+			$ph=strtolower($_POST['ph']);  
+			
+		
+
+			$sql="update register2 set ph='$ph' where id='$id'";  
+			$result=mysql_query($sql);  
+			
+			if($result)
+			{  
+				echo "Successfully Submitted";
+				echo '</br>';
+				echo '</br>';
+				
+				
+					
+			} else 
+			{  
+				echo "Failure!";  
+				echo '</br>';
+				echo '</br>';
+			}  
+      
+        } 
+		 if(isset($_POST["emasub"]))
+	   	{  
+			$con=mysql_connect('localhost','root','') or die(mysql_error());  
+			mysql_select_db('my') or die("cannot select DB");  
+			  
+			$mail=strtolower($_POST['mail']);  
+			
+			$sql="update register2 set mail='$mail' where id='$id'";  
+			$result=mysql_query($sql);  
+			
+			if($result)
+			{  
+				echo "Successfully Submitted";
+				echo '</br>';
+				echo '</br>';
+				
+				
+					
+			} else 
+			{  
+				echo "Failure!";  
+				echo '</br>';
+				echo '</br>';
+			}  
+      
+        } 
     if(isset($_POST["edusub"]))
 		{  
 			$con=mysql_connect('localhost','root','') or die(mysql_error());  
