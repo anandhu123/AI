@@ -6,10 +6,10 @@ library(RMySQL)
 library(dbConnect)
 
 # Set API Keys
-api_key <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-api_secret <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-access_token <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-access_token_secret <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+api_key <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+api_secret <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+access_token <- "xxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxx"
+access_token_secret <- "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 setup_twitter_oauth(api_key, api_secret, access_token, access_token_secret)
 
 #Extract latest tweets
@@ -43,6 +43,7 @@ for(m in 1:rno)
 number<-nrow(db)
 for(k in 1:number)
 {
+  
   print(db[k,1])
   #Process the retrived tweets
   tweet=twListToDF(myMorningTweets)
@@ -54,10 +55,13 @@ for(k in 1:number)
   n=nrow(tweets)
   if(n==0)
   {
-    next;
+    change=sprintf("update register2 set status='Confirmed' where tweet= '%s'", db[k,1])
+    dbGetQuery(con,change) 
+    next
   }
+  print("Count")
   count=0
-  words=c("job","employee","job alert","job search","career","occupation","employment")
+  words=c("people","People1stTripuraModel","Pakoda")
   num=length(words)
 
   for(j in 1:num)
