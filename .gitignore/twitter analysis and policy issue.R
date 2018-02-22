@@ -61,7 +61,7 @@ for(k in 1:number)
   }
   print("Count")
   count=0
-  words=c("people","People1stTripuraModel","Pakoda")
+  words=c("employee","job","job alert","occupation","job vacancy","vacancy","career","interview","placement")
   num=length(words)
 
   for(j in 1:num)
