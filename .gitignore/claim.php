@@ -48,13 +48,7 @@
 		   <th>Name of medical provider (Hospital) </th>
 		   <th><input type="text" name="hos"></th>
 		   </tr>
-		   
-		   
-		   
-		   
-		   
-		   
-		   
+		    
 		 <tr>		 
 		   <th>Location of medical provider </th>
 		   <th><input type="text" name="loc"></th>
@@ -105,10 +99,7 @@
             </legend>  
 			
 			</br/>
-			
-			
-			
-			
+	
 			
     </form>  
 	
@@ -128,17 +119,17 @@
 			$amo=$_POST['amo']; 
  			$ran=mt_rand (100000,2000000);
 			$secret=$ran;
-				$num=$_POST['num']; 		
-			$dur=$_POST['dur']; 
+			$num=$_POST['num']; 		
+			$dur=$_POST['dur'];
+			$date=date("d/m/Y");	
 			
 			
-			$sql="insert into claim(name,Location,id,hospital,amount,cid,number,duration)values('$name','$loc','$id','$hos','$amo','$secret','$num','$dur')";
+			$sql="insert into claim(name,Location,id,hospital,amount,cid,number,duration,date)values('$name','$loc','$id','$hos','$amo','$secret','$num','$dur','$date')";
 			$result=mysql_query($sql); 
 			if($result)
 			{
 				echo 'You are succesfully applied for '." ".$name." ".'claim';
 				
-			
 			}		
 			
 			
