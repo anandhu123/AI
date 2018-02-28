@@ -2,7 +2,7 @@ library(ggmap)
 library(geosphere)
 
 #Google API for location access
-register_google(key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+register_google(key = "xxxxxxxxxxxxxxxxxxxxxx")
 
 #Sql connection
 con = dbConnect(MySQL(), user ='root',password ='',dbname = 'my',host ='localhost')
@@ -132,7 +132,6 @@ for(x in 1:n)
 #Hospital network
 library(readr)
 hosp <- read_csv("C:/Users/anand/Downloads/hospital_directory.csv")
-#hosp=hosp[hosp$State=='Kerala',]
 hosp$Hospital_Name=gsub( " *\\(.*?\\) *", "", hosp$Hospital_Name)
 
 n1=nrow(claimdb)
@@ -235,7 +234,6 @@ for(i in 1:n2)
       claimdb[claimdb$id==data1[j],10]="Huge claims"
       
     }
-    
   }
 }
 
@@ -251,10 +249,8 @@ for(q in 1:length(lis))
 {
   f=0
   dup=claimdb[claimdb$id==lis[q],]
-  if(nrow(dup)==1)
-  {
-    next;
-  } 
+  if(nrow(dup)==1) next;
+   
   nr=nrow(dup)
     for(r in 1:nr)
       {
@@ -276,6 +272,8 @@ for(q in 1:length(lis))
     }
 }
 
+
+if(nrow(arrays)!=0){
 listun=unique(arrays)
 listun=listun[listun$person>0,]
 listun$reason=""
@@ -284,8 +282,10 @@ for(v in 1:nrow(listun))
 {
   listun[v,3]="Duplication of claims"
 }
+}
 
 #Update claimdb
+if(nrow(listun)!=0){
 for(i in 1:nrow(listun))
 {
   x= claimdb[claimdb$id==listun[i,2],]
@@ -298,7 +298,7 @@ for(i in 1:nrow(listun))
      claimdb[claimdb$name==y[j] & claimdb$id==listun[i,2],]$reason="Duplication"
   }
 }
-
+}
 #writing to DB
 for(d in 1:nrow(claimdb))
 {
@@ -318,19 +318,24 @@ for(d in 1:nrow(claimdb))
 #SMS for claim approval
 library(twilio)
 
-Sys.setenv(TWILIO_SID = "xxxxxxxxxxxxxxxxxxxxxx")
-Sys.setenv(TWILIO_TOKEN = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+Sys.setenv(TWILIO_SID = "xxxxxxxxxxxxxxxxxxx")
+Sys.setenv(TWILIO_TOKEN = "xxxxxxxxxxxxxxxxxxx")
 
-my_phone_number <- "+xxxxxxxxxxxxxxxxxxxxx"
-twilios_phone_number <- "+xxxxxxxxxxxxxxxxxx"
+my_phone_number <- "+919400345678"
+twilios_phone_number <- "+19335453456"
 
 s="select * from  register2"
 s<-dbGetQuery(con,s)
 n=nrow(claimdb)
-claimdb="select * from  claim"
+claimdb="select * from  claim where smsstatus='no'"
 claimdb=dbGetQuery(con,claimdb)
 
+claimdb1="update claim set smsstatus='yes'"
+claimdb1=dbGetQuery(con,claimdb1)
+
+
 dat=claimdb[claimdb$status=='Accepted',]
+if(nrow(dat)!=0){
 dat1 <- data.frame(matrix(ncol = 2, nrow = 0))
 x <- c("name", "ph")
 colnames(dat1) <- x
@@ -351,10 +356,8 @@ for(i in 1:leng)
                  body = body)
 }
 
-
-
-
-
+}
+}
 
 
 
